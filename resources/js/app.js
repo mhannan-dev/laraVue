@@ -6,25 +6,29 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
+window.Form = Form;
+import Vue from 'vue'
 
 import VueRouter from 'vue-router'
-Vue.use(VueRouter) 
+Vue.use(VueRouter)
+import { Form, HasError, AlertError } from 'vform'
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+
 
 let routes = [
-    // { path: '/dashboard', component: require('./components/Dashboard.vue').default},
-    // { path: '/profile', component: require('./components/Profile.vue').default},
+    { path: '/dashboard', component: require('./components/pages/dashboard/Dashboard.vue').default },
+    { path: '/users', component: require('./components/pages/management/Users.vue').default },
+    { path: '/profile', component: require('./components/Profile.vue').default }
 
-    { path: '/dashboard',  component: require('./components/Dashboard.vue').default},
-    { path: '/profile',  component: require('./components/Profile.vue').default}
-   
 ]
 
 // Register route array/ variable
 const router = new VueRouter({
     mode: 'history',
     routes
-    
+
     //routes: routes
 })
 
