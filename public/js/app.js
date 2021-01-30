@@ -2123,7 +2123,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: {},
+      users: [],
       form: new Form({
         name: "",
         email: "",
@@ -2140,11 +2140,19 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this.users = data;
+        return _this.users = data.data;
       });
     },
     createUser: function createUser() {
-      this.form.post("api/user");
+      var _this2 = this;
+
+      this.form.post("api/user").then(function (response) {
+        $("#newModal").modal("hide");
+
+        _this2.loadUsers();
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     newUserModal: function newUserModal() {
       $("#newModal").modal("show");
@@ -38907,9 +38915,9 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.users.data, function(user) {
+                _vm._l(_vm.users, function(user, index) {
                   return _c("tr", { key: user.id }, [
-                    _c("td", [_vm._v(_vm._s(user.id))]),
+                    _c("td", [_vm._v(_vm._s(++index))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(user.name))]),
                     _vm._v(" "),
@@ -54957,8 +54965,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\laraVue\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laragon\www\laraVue\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\LaraVue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\LaraVue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

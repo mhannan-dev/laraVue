@@ -30,8 +30,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users.data" :key="user.id">
-                  <td>{{ user.id }}</td>
+                <tr v-for="(user,index) in users" :key="user.id">
+                  <td>{{ ++index }}</td>
                   <td>{{ user.name }}</td>
                   <td>{{ user.email }}</td>
                   <td>
@@ -131,7 +131,7 @@
 export default {
   data() {
     return {
-      users: {},
+      users: [],
       form: new Form({
         name: "",
         email: "",
@@ -145,16 +145,23 @@ export default {
 
   methods: {
     loadUsers() {
-        axios.get("api/user").then(({ data }) => (this.users = data ));
+        axios.get("api/user")
+        .then(({ data }) => (this.users = data.data ));
     },
     createUser() {
-      this.form.post("api/user");
+      this.form.post("api/user")
+      .then((response) => {
+        $("#newModal").modal("hide");
+        this.loadUsers()
+      })
+      .catch(error => {
+        console.log(error)
+      })
     },
     newUserModal() {
       $("#newModal").modal("show");
     },
   },
-
   created() {
       this.loadUsers();
   }
