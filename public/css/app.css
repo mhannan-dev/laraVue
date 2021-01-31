@@ -37353,6 +37353,25 @@ readers do not read off random characters that represent icons */
 @font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot?0232fe8b09de812c88e6cc27f57a3a88);
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot?0232fe8b09de812c88e6cc27f57a3a88) format("embedded-opentype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2?847712aaabbeba674afdda86d31cab17) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff?3cace4a04d941b5981ba32c6ce9afae1) format("woff"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf?398be22b2308585b84da8e858e2d7b60) format("truetype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg?d0fdc7c20b0b0b1aaf27327547735fa3) format("svg");
+}
+
+.far {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+}
+
+/*!
+ * Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
   font-weight: 900;
   font-display: block;
   src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?00bb62bc33034479d5e82a0fd1c5efe3);

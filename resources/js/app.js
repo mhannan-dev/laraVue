@@ -9,13 +9,14 @@ require('./bootstrap');
 // window.Vue = require('vue');
 window.Form = Form;
 import Vue from 'vue'
-
+import moment from 'moment'
+//Vue.prototype.moment = moment
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import { Form, HasError, AlertError } from 'vform'
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
-
+import VueProgressBar from 'vue-progressbar'
 
 let routes = [
     { path: '/dashboard', component: require('./components/pages/dashboard/Dashboard.vue').default },
@@ -29,9 +30,23 @@ const router = new VueRouter({
     mode: 'history',
     routes
 
-    //routes: routes
 })
 
+Vue.filter('upText', function (text){
+    return text.charAt(0).toUpperCase() + text.slice(1)
+})
+
+
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('MM/DD/YYYY hh:mm')
+    }
+});
+Vue.use(VueProgressBar,{
+    color: '#f80451',
+    failedColor: '#874b4b',
+    thickness: '3px'
+})
 
 /**
  * The following block of code may be used to automatically register your

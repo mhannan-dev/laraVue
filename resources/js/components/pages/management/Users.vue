@@ -41,9 +41,9 @@
                     />
                   </td>
                   <td>
-                    <span class="tag tag-success">{{ user.type }}</span>
+                    <span class="tag tag-success">{{ user.type | upText}}</span>
                   </td>
-                  <td>{{ user.created_at }}</td>
+                  <td>{{ user.created_at | formatDate }}</td>
                   <td>
                     <a
                       title="Edit"
@@ -149,6 +149,7 @@ export default {
         .then(({ data }) => (this.users = data.data ));
     },
     createUser() {
+      this.$Progress.start()
       this.form.post("api/user")
       .then((response) => {
         $("#newModal").modal("hide");
@@ -157,6 +158,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+      this.$Progress.finish()
     },
     newUserModal() {
       $("#newModal").modal("show");
