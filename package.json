@@ -27,6 +27,7 @@
         "@fortawesome/fontawesome-free": "^5.15.3",
         "admin-lte": "^3.1.0",
         "moment": "^2.29.1",
+        "sweetalert2": "^10.16.0",
         "toastr": "^2.1.4",
         "vform": "^1.0.1",
         "vue-moment": "^4.1.0",

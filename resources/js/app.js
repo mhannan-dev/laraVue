@@ -16,7 +16,20 @@ Vue.use(VueRouter)
 import { Form, HasError, AlertError } from 'vform'
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+//VueProgressBar
 import VueProgressBar from 'vue-progressbar'
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2'
+window.Swal = Swal;
+
+const toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
+
+  window.toast = toast;
 
 let routes = [
     { path: '/dashboard', component: require('./components/pages/dashboard/Dashboard.vue').default },
