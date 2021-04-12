@@ -8,11 +8,18 @@
                         <div class="card-tools">
                             <div class="float-right">
                                 <!-- Button trigger modal -->
-                                <button
+                                <button v-show="!editmode"
                                     class="btn btn-success"
-                                    @click="newUserModal"
+                                    @click="newModal"
                                 >
                                     Add New
+                                    <i class="fas fa-user-plus fa-fw"></i>
+                                </button>
+                                <button v-show="editmode"
+                                    class="btn btn-success"
+                                    @click="newModal"
+                                >
+                                    Update
                                     <i class="fas fa-user-plus fa-fw"></i>
                                 </button>
                             </div>
@@ -22,7 +29,7 @@
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover text-nowrap">
                             <thead>
-                                <tr>
+                                <tr class="table-success">
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -53,10 +60,10 @@
                                     </td>
                                     <td>{{ user.created_at | myDate }}</td>
                                     <td>
-                                        <a
+                                        <a @click="editModal(user)"
                                             title="Edit"
                                             href="#"
-                                            class="btn btn-outline-info btn-sm"
+                                            class="btn btn-primary btn-sm"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </a>
@@ -103,7 +110,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form @submit.prevent="createUser">
+                        <form @submit.prevent="editmode ? updateUser() : createUser()">
                             <div class="form-group">
                                 <input
                                     v-model="form.name"
@@ -192,9 +199,12 @@
                                 ></has-error>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">
-                                Save
-                            </button>
+
+                            <div class="modal-footer">
+                                <button v-show="!editmode" type="submit" class="btn btn-success">Save</button>
+                                <button v-show="editmode" type="submit" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
                         </form>
                     </div>
                 </div>
@@ -206,6 +216,7 @@
 export default {
     data() {
         return {
+            editmode: false,
             users: [],
             form: new Form({
                 name: "",
@@ -219,6 +230,21 @@ export default {
     },
 
     methods: {
+        updateUser(){
+            console.log('editing data');
+
+        },
+        editModal(user){
+            this.editmode = true;
+            this.form.reset();
+            $("#newModal").modal("show");
+            this.form.fill(user);
+        },
+        newModal(){
+             this.editmode = false;
+            this.form.reset();
+            $("#newModal").modal("show");
+        },
         //Delete user
         deleteUser(id) {
             Swal.fire({
@@ -243,7 +269,6 @@ export default {
                         Swal("Failed", "There was something wrong", "warning");
                     });
                 }
-
             });
         },
         //Show users
@@ -265,9 +290,6 @@ export default {
                 })
                 .catch(() => {});
         },
-        newUserModal() {
-            $("#newModal").modal("show");
-        }
     },
     created() {
         this.loadUsers();
