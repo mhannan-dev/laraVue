@@ -37,15 +37,16 @@ Vue.filter('upText', function (text){
 })
 
 
-Vue.filter('formatDate', function(value) {
+Vue.filter('myDate', function(value) {
     if (value) {
-        return moment(String(value)).format('MM/DD/YYYY hh:mm')
+        return moment(String(value)).format('MMMM Do YYYY')
     }
 });
+
 Vue.use(VueProgressBar,{
-    color: '#f80451',
-    failedColor: '#874b4b',
-    thickness: '3px'
+    color: '#DC4422',
+    failedColor: '#F57832',
+    thickness: '4px'
 })
 
 /**

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 // Variables
 @import 'variables';
+@import "~toastr";
 $fa-font-path : "../webfonts";
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
