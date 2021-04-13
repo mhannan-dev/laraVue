@@ -97,9 +97,9 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            User Information
-                        </h5>
+
+                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New</h5>
+                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update User's Info</h5>
                         <button
                             type="button"
                             class="close"
@@ -219,19 +219,35 @@ export default {
             editmode: false,
             users: [],
             form: new Form({
-                name: "",
-                email: "",
-                password: "",
-                type: "",
-                bio: "",
-                photo: ""
+                id: '',
+                name: '',
+                email: '',
+                password: '',
+                type: '',
+                bio: '',
+                photo: ''
             })
         };
     },
 
     methods: {
         updateUser(){
-            console.log('editing data');
+            this.$Progress.start
+             // console.log('Editing data');
+            this.form.put('api/user/'+ this.form.id)
+            .then(() => {
+                $("#newModal").modal("hide");
+                toast.fire({
+                    icon: "success",
+                    title: "User updated successfully"
+                });
+                this.$Progress.finish();
+                 Fire.$emit('AfterCreate');
+            })
+            .catch(() => {
+
+            });
+
 
         },
         editModal(user){
@@ -264,7 +280,9 @@ export default {
                             "Your file has been deleted.",
                             "success"
                         );
+                         Fire.$emit('AfterCreate');
                     })
+
                     .catch(() => {
                         Swal("Failed", "There was something wrong", "warning");
                     });
@@ -278,8 +296,7 @@ export default {
         //Create User
         createUser() {
             this.$Progress.start();
-            this.form
-                .post("api/user")
+            this.form.post("api/user")
                 .then(() => {
                     $("#newModal").modal("hide");
                     toast.fire({
@@ -288,14 +305,19 @@ export default {
                     });
                     this.$Progress.finish();
                 })
-                .catch(() => {});
+                .catch(() => {
+
+                });
         },
     },
     created() {
         this.loadUsers();
-        setInterval(() => {
-            this.loadUsers();
-        }, 2000);
+         Fire.$on('AfterCreate',() => {
+               this.loadUsers();
+           });
+        // setInterval(() => {
+        //     this.loadUsers();
+        // }, 2000);
     }
 };
 </script>

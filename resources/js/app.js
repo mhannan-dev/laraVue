@@ -55,9 +55,9 @@ Vue.filter('myDate', function(value) {
         return moment(String(value)).format('MMMM Do YYYY')
     }
 });
-
+window.Fire =  new Vue();
 Vue.use(VueProgressBar,{
-    color: '#DC4422',
+    color: 'green',
     failedColor: '#F57832',
     thickness: '4px'
 })
