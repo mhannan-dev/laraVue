@@ -5,8 +5,6 @@
  */
 
 require('./bootstrap');
-
-// window.Vue = require('vue');
 window.Form = Form;
 import Vue from 'vue'
 import moment from 'moment'
@@ -32,8 +30,9 @@ const toast = Swal.mixin({
   window.toast = toast;
 
 let routes = [
-    { path: '/dashboard', component: require('./components/pages/dashboard/Dashboard.vue').default },
-    { path: '/users', component: require('./components/pages/management/Users.vue').default },
+    { path: '/dashboard', component: require('./components/Dashboard.vue').default },
+    { path: '/developer', component: require('./components/Developer.vue').default },
+    { path: '/users', component: require('./components/Users.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default }
 
 ]
@@ -57,21 +56,17 @@ Vue.filter('myDate', function(value) {
 });
 window.Fire =  new Vue();
 Vue.use(VueProgressBar,{
-    color: 'green',
-    failedColor: '#F57832',
+    color: '#00b300',
+    failedColor: '#ff471a',
     thickness: '4px'
 })
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.component('passport-client', require('./components/passport/Clients.vue').default);
+Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue').default);
+Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue').default);
+
+
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
