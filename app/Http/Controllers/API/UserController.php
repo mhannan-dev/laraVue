@@ -11,6 +11,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('api');
+        //$this->middleware('auth:api');
     }
 
     /**
@@ -20,8 +21,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //$users = User::orderBy('id', 'desc')->take(3)->get();
-        //dd($users);
         return User::latest()->paginate(3);
 
     }
@@ -53,6 +52,10 @@ class UserController extends Controller
     public function show($id)
     {
         //
+    }
+    public function profile()
+    {
+        return auth('api')->user();
     }
     /**
     * Update the specified resource in storage.

@@ -55,6 +55,7 @@ Vue.filter('myDate', function(value) {
     }
 });
 window.Fire =  new Vue();
+
 Vue.use(VueProgressBar,{
     color: '#00b300',
     failedColor: '#ff471a',
@@ -62,9 +63,19 @@ Vue.use(VueProgressBar,{
 })
 
 
-Vue.component('passport-client', require('./components/passport/Clients.vue').default);
-Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue').default);
-Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue').default);
+Vue.component(
+    'passportclients',
+    require('./components/passport/Clients.vue').default
+);
+Vue.component(
+    'passportauthorizedclients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passportpersonalaccesstokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 
 

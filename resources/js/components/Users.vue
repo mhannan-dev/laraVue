@@ -8,14 +8,16 @@
                         <div class="card-tools">
                             <div class="float-right">
                                 <!-- Button trigger modal -->
-                                <button v-show="!editmode"
+                                <button
+                                    v-show="!editmode"
                                     class="btn btn-success"
                                     @click="newModal"
                                 >
                                     Add New
                                     <i class="fas fa-user-plus fa-fw"></i>
                                 </button>
-                                <button v-show="editmode"
+                                <button
+                                    v-show="editmode"
                                     class="btn btn-success"
                                     @click="newModal"
                                 >
@@ -60,7 +62,8 @@
                                     </td>
                                     <td>{{ user.created_at | myDate }}</td>
                                     <td>
-                                        <a @click="editModal(user)"
+                                        <a
+                                            @click="editModal(user)"
                                             title="Edit"
                                             href="#"
                                             class="btn btn-primary btn-sm"
@@ -97,9 +100,20 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-
-                        <h5 class="modal-title" v-show="!editmode" id="addNewLabel">Add New</h5>
-                        <h5 class="modal-title" v-show="editmode" id="addNewLabel">Update User's Info</h5>
+                        <h5
+                            class="modal-title"
+                            v-show="!editmode"
+                            id="addNewLabel"
+                        >
+                            Add New
+                        </h5>
+                        <h5
+                            class="modal-title"
+                            v-show="editmode"
+                            id="addNewLabel"
+                        >
+                            Update User's Info
+                        </h5>
                         <button
                             type="button"
                             class="close"
@@ -110,7 +124,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form @submit.prevent="editmode ? updateUser() : createUser()">
+                        <form
+                            @submit.prevent="
+                                editmode ? updateUser() : createUser()
+                            "
+                        >
                             <div class="form-group">
                                 <input
                                     v-model="form.name"
@@ -199,12 +217,29 @@
                                 ></has-error>
                             </div>
 
-
                             <div class="modal-footer">
-                                <button v-show="!editmode" type="submit" class="btn btn-success">Save</button>
-                                <button v-show="editmode" type="submit" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                              </div>
+                                <button
+                                    v-show="!editmode"
+                                    type="submit"
+                                    class="btn btn-success"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    v-show="editmode"
+                                    type="submit"
+                                    class="btn btn-primary"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    data-dismiss="modal"
+                                >
+                                    Close
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -219,44 +254,41 @@ export default {
             editmode: false,
             users: [],
             form: new Form({
-                id: '',
-                name: '',
-                email: '',
-                password: '',
-                type: '',
-                bio: '',
-                photo: ''
+                id: "",
+                name: "",
+                email: "",
+                password: "",
+                type: "",
+                bio: "",
+                photo: ""
             })
         };
     },
 
     methods: {
-        updateUser(){
+        updateUser() {
             this.$Progress.start();
-            this.form.put('api/user/'+ this.form.id)
-            .then(() => {
-                $("#newModal").modal("hide");
-                toast.fire({
-                    icon: "success",
-                    title: "User updated successfully"
-                });
-                this.$Progress.finish();
-                 Fire.$emit('AfterCreate');
-            })
-            .catch(() => {
-
-            });
-
-
+            this.form
+                .put("api/user/" + this.form.id)
+                .then(() => {
+                    $("#newModal").modal("hide");
+                    toast.fire({
+                        icon: "success",
+                        title: "User updated successfully"
+                    });
+                    this.$Progress.finish();
+                    Fire.$emit('AfterCreate');
+                })
+                .catch(() => {});
         },
-        editModal(user){
+        editModal(user) {
             this.editmode = true;
             this.form.reset();
             $("#newModal").modal("show");
             this.form.fill(user);
         },
-        newModal(){
-             this.editmode = false;
+        newModal() {
+            this.editmode = false;
             this.form.reset();
             $("#newModal").modal("show");
         },
@@ -272,19 +304,24 @@ export default {
                 confirmButtonText: "Yes, delete it!"
             }).then(result => {
                 if (result.isConfirmed) {
-                    this.form.delete("api/user/" + id)
-                    .then(() => {
-                        Swal.fire(
-                            "Deleted!",
-                            "Your file has been deleted.",
-                            "success"
-                        );
-                         Fire.$emit('AfterCreate');
-                    })
+                    this.form
+                        .delete("api/user/" + id)
+                        .then(() => {
+                            Swal.fire(
+                                "Deleted!",
+                                "Your file has been deleted.",
+                                "success"
+                            );
+                            Fire.$emit('AfterCreate');
+                        })
 
-                    .catch(() => {
-                        Swal("Failed", "There was something wrong", "warning");
-                    });
+                        .catch(() => {
+                            Swal(
+                                "Failed",
+                                "There was something wrong",
+                                "warning"
+                            );
+                        });
                 }
             });
         },
@@ -297,23 +334,24 @@ export default {
             this.$Progress.start();
             this.form.post("api/user")
                 .then(() => {
+                    Fire.$emit('AfterCreate');
                     $("#newModal").modal("hide");
                     toast.fire({
                         icon: "success",
-                        title: "New user created successfully"
+                        title: "User created successfully"
                     });
                     this.$Progress.finish();
                 })
-                .catch(() => {
-
-                });
-        },
+                .catch((err) => {
+                console.log(err)
+                })
+        }
     },
     created() {
         this.loadUsers();
-         Fire.$on('AfterCreate',() => {
-               this.loadUsers();
-           });
+        Fire.$on('AfterCreate', () => {
+            this.loadUsers();
+        });
         // setInterval(() => {
         //     this.loadUsers();
         // }, 2000);
