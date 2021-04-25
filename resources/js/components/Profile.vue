@@ -208,7 +208,7 @@ export default {
         };
     },
     mounted() {
-        console.log(data);
+        console.log('Okey');
     },
     //Sending data to server
     created() {

@@ -2245,7 +2245,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log(data);
+    console.log('Okey');
   },
   //Sending data to server
   created: function created() {
@@ -2548,7 +2548,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$Progress.finish();
 
-        Fire.$emit('AfterCreate');
+        Fire.$emit("AfterCreate");
       })["catch"](function () {});
     },
     editModal: function editModal(user) {
@@ -2578,7 +2578,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.isConfirmed) {
           _this2.form["delete"]("api/user/" + id).then(function () {
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
-            Fire.$emit('AfterCreate');
+            Fire.$emit("AfterCreate");
           })["catch"](function () {
             Swal("Failed", "There was something wrong", "warning");
           });
@@ -2589,9 +2589,17 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this3 = this;
 
-      axios.get("api/user").then(function (_ref) {
+      // axios.get("api/user")
+      //     .then(({data})=> {
+      //         console.log(data.data);
+      //         return this.data;
+      //     })
+      //     .catch(function(error) {
+      //         console.log(error);
+      //     });
+      axios.get("/api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this3.users = data.data;
+        return _this3.users = data;
       });
     },
     //Create User
@@ -2599,8 +2607,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$Progress.start();
-      this.form.post("api/user").then(function () {
-        Fire.$emit('AfterCreate');
+      this.form.post("/api/user").then(function () {
+        Fire.$emit("AfterCreate");
         $("#newModal").modal("hide");
         toast.fire({
           icon: "success",
@@ -2617,11 +2625,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this5 = this;
 
     this.loadUsers();
-    Fire.$on('AfterCreate', function () {
+    Fire.$on("AfterCreate", function () {
       _this5.loadUsers();
-    }); // setInterval(() => {
-    //     this.loadUsers();
-    // }, 2000);
+    });
   }
 });
 

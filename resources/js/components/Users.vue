@@ -277,7 +277,7 @@ export default {
                         title: "User updated successfully"
                     });
                     this.$Progress.finish();
-                    Fire.$emit('AfterCreate');
+                    Fire.$emit("AfterCreate");
                 })
                 .catch(() => {});
         },
@@ -312,7 +312,7 @@ export default {
                                 "Your file has been deleted.",
                                 "success"
                             );
-                            Fire.$emit('AfterCreate');
+                            Fire.$emit("AfterCreate");
                         })
 
                         .catch(() => {
@@ -327,14 +327,23 @@ export default {
         },
         //Show users
         loadUsers() {
-            axios.get("api/user").then(({ data }) => (this.users = data.data));
+            // axios.get("api/user")
+            //     .then(({data})=> {
+            //         console.log(data.data);
+            //         return this.data;
+            //     })
+            //     .catch(function(error) {
+            //         console.log(error);
+            //     });
+            axios.get("/api/user").then(({ data }) => (this.users = data));
         },
         //Create User
         createUser() {
             this.$Progress.start();
-            this.form.post("api/user")
+            this.form
+                .post("/api/user")
                 .then(() => {
-                    Fire.$emit('AfterCreate');
+                    Fire.$emit("AfterCreate");
                     $("#newModal").modal("hide");
                     toast.fire({
                         icon: "success",
@@ -342,19 +351,16 @@ export default {
                     });
                     this.$Progress.finish();
                 })
-                .catch((err) => {
-                console.log(err)
-                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     },
     created() {
         this.loadUsers();
-        Fire.$on('AfterCreate', () => {
+        Fire.$on("AfterCreate", () => {
             this.loadUsers();
         });
-        // setInterval(() => {
-        //     this.loadUsers();
-        // }, 2000);
     }
 };
 </script>
