@@ -248,6 +248,8 @@
     </div>
 </template>
 <script>
+import axios from "axios";
+
 export default {
     data() {
         return {
@@ -327,15 +329,14 @@ export default {
         },
         //Show users
         loadUsers() {
-            // axios.get("api/user")
-            //     .then(({data})=> {
-            //         console.log(data.data);
-            //         return this.data;
-            //     })
-            //     .catch(function(error) {
-            //         console.log(error);
-            //     });
-            axios.get("/api/user").then(({ data }) => (this.users = data));
+            axios.get("/api/user").then(data => {
+                //console.log(response.data);
+                this.users = data
+            });
+
+            // axios.get("/api/user").then(({ data }) =>
+            //   this.users = data
+            // );
         },
         //Create User
         createUser() {
