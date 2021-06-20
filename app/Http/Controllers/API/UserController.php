@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\UserRequest;
 use Illuminate\Support\Facades\Hash;
-use App\User;
+use App\Models\User;
 class UserController extends Controller
 {
     public function __construct()
